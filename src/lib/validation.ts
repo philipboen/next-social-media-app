@@ -8,11 +8,11 @@ export const signUpSchema = z.object({
     .regex(/^[a-zA-Z0-9_-]+$/, "Only letters, numbers, - and _ are allowed")
     .min(3, "Username must be at least 3 characters"),
   password: requiredString
+    .min(8, "Password must be at least 8 characters")
     .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z])/,
       "Password must contain a lowercase letter, an uppercase letter, a number and a special character",
-    )
-    .min(8, "Password must be at least 8 characters"),
+    ),
 });
 
 export type SignUpValues = z.infer<typeof signUpSchema>;
