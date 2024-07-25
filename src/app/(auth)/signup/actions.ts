@@ -35,7 +35,7 @@ export async function signUp(
 
     if (existingUsername) {
       return {
-        error: "Username already taken",
+        error: "Username already taken!",
       };
     }
 
@@ -50,7 +50,7 @@ export async function signUp(
 
     if (existingEmail) {
       return {
-        error: "Email already taken",
+        error: "Email already taken!",
       };
     }
 

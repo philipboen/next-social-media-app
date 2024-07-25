@@ -35,7 +35,7 @@ export const lucia = new Lucia(adapter, {
 declare module "lucia" {
   // eslint-disable-next-line no-unused-vars
   interface Register {
-    Lucia: typeof Lucia;
+    Lucia: typeof lucia;
     DatabaseUserAttributes: DatabaseUserAttributes;
   }
 }
