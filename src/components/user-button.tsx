@@ -17,9 +17,10 @@ import { cn } from "@/lib/utils";
 
 interface UserButtonProps {
   className?: string;
+  otherStyles?: string;
 }
 
-export const UserButton = ({ className }: UserButtonProps) => {
+export const UserButton = ({ className, otherStyles }: UserButtonProps) => {
   const { user } = useSession();
 
   return (
@@ -29,7 +30,7 @@ export const UserButton = ({ className }: UserButtonProps) => {
           <UserAvatar avatarUrl={user.avatarUrl} size={40} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className={otherStyles}>
         <DropdownMenuLabel>
           Logged in as <strong>@{user.username}</strong>
         </DropdownMenuLabel>

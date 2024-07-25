@@ -10,7 +10,7 @@ export const Navbar = () => {
           Bugbook
         </Link>
         <SearchField />
-        <UserButton className="sm:ms-auto" />
+        <UserButton className="sm:ms-auto" otherStyles="mr-4" />
       </div>
     </header>
   );
