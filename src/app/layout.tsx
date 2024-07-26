@@ -2,6 +2,7 @@ import "./globals.css";
 import React from "react";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -23,7 +24,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} font-sans`}>{children}</body>
+      <body className={`${manrope.variable} font-sans`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
