@@ -1,6 +1,6 @@
 "use client";
 
-import "./styles.css"
+import "./styles.css";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -8,9 +8,12 @@ import { submitPost } from "./actions";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
 
 export const PostEditor = () => {
   const { user } = useSession();
+
+  const [isPending, startTransition] = useTransition();
 
   const editor = useEditor({
     extensions: [
@@ -30,8 +33,10 @@ export const PostEditor = () => {
     }) || "";
 
   async function onSubmit() {
-    await submitPost(input);
-    editor?.commands.clearContent();
+    startTransition(async () => {
+      await submitPost(input);
+      editor?.commands.clearContent();
+    });
   }
 
   return (
@@ -46,7 +51,7 @@ export const PostEditor = () => {
       <div className="flex justify-end">
         <Button
           onClick={onSubmit}
-          disabled={!input.trim()}
+          disabled={!input.trim() || isPending}
           className="min-w-20"
         >
           Post
