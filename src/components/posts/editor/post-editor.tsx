@@ -25,6 +25,7 @@ export const PostEditor = () => {
         placeholder: "Write something amazing...",
       }),
     ],
+    immediatelyRender: false,
   });
 
   const input =
@@ -45,6 +46,7 @@ export const PostEditor = () => {
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
         <EditorContent
           editor={editor}
+          disabled={isPending}
           className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3"
         />
       </div>
