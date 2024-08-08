@@ -4,16 +4,15 @@ import "./styles.css";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import { submitPost } from "./actions";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { UserAvatar } from "@/components/user-avatar";
-import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
+import { useSubmitPostMutation } from "./mutations";
+import { LoadingButton } from "@/components/loading-button";
 
 export const PostEditor = () => {
   const { user } = useSession();
 
-  const [isPending, startTransition] = useTransition();
+  const mutation = useSubmitPostMutation();
 
   const editor = useEditor({
     extensions: [
@@ -33,10 +32,11 @@ export const PostEditor = () => {
       blockSeparator: "\n",
     }) || "";
 
-  async function onSubmit() {
-    startTransition(async () => {
-      await submitPost(input);
-      editor?.commands.clearContent();
+  function onSubmit() {
+    mutation.mutate(input, {
+      onSuccess: () => {
+        editor?.commands.clearContent();
+      },
     });
   }
 
@@ -46,18 +46,19 @@ export const PostEditor = () => {
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
         <EditorContent
           editor={editor}
-          disabled={isPending}
+          disabled={mutation.isPending}
           className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3"
         />
       </div>
       <div className="flex justify-end">
-        <Button
+        <LoadingButton
           onClick={onSubmit}
-          disabled={!input.trim() || isPending}
+          loading={mutation.isPending}
+          disabled={!input.trim() || mutation.isPending}
           className="min-w-20"
         >
           Post
-        </Button>
+        </LoadingButton>
       </div>
     </div>
   );
