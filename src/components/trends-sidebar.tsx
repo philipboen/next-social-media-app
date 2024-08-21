@@ -36,7 +36,7 @@ async function WhoToFollow() {
   });
 
   return (
-    <div className="custom-scrollbar max-h-[300px] space-y-5 overflow-y-auto rounded-2xl bg-card p-5 shadow-sm">
+    <div className="hover:custom-scrollbar max-h-[300px] space-y-5 overflow-y-hidden rounded-2xl bg-card p-5 shadow-sm hover:overflow-y-auto">
       <div className="font-serif text-xl font-bold">Who to follow</div>
       {usersToFollow.map((user) => (
         <div key={user.id} className="flex items-center justify-between gap-3">
@@ -86,7 +86,7 @@ async function TrendingTopics() {
   const trendingTopics = await getTrendingTopics();
 
   return (
-    <div className="custom-scrollbar max-h-[300px] space-y-5 overflow-y-auto rounded-2xl bg-card p-5 shadow-sm">
+    <div className="hover:custom-scrollbar z-10 max-h-[280px] space-y-5 overflow-y-hidden rounded-2xl bg-card p-5 shadow-sm hover:overflow-y-auto">
       <div className="font-serif text-xl font-bold">Trending topics</div>
       {trendingTopics.map(({ hashtag, count }) => {
         const title = hashtag.split("#")[1];

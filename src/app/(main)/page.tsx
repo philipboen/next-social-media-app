@@ -1,5 +1,5 @@
 import { PostEditor } from "@/components/posts/editor/post-editor";
-import { TrendsSidebar } from "@/components/trendsSidebar";
+import { TrendsSidebar } from "@/components/trends-sidebar";
 import ForYouFeed from "./for-you-feed";
 
 export default function Home() {
